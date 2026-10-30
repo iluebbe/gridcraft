@@ -1,5 +1,5 @@
 use super::show::ok_cancel;
-use super::*;
+use super::{Dialog, Json, Map, SheetApp, Stroke, json, vec2};
 
 /// The check boxes of Text Import's delimiters, with the delimiter each stands for.
 const TEXT_IMPORT_DELIMITERS: [(&str, &str, &str); 4] =
@@ -165,7 +165,7 @@ pub(super) fn text_import(app: &mut SheetApp, ui: &mut egui::Ui, d: &mut Dialog,
             let qualifier = text(d, "qualifier");
             let shown = |q: &str| if q.is_empty() { lang.tr("{none}").to_string() } else { q.to_string() };
             let mut picked = qualifier.clone();
-            egui::ComboBox::from_id_salt("textImportQualifier")
+            craft_ui::ComboBox::from_id_salt("textImportQualifier")
                 .selected_text(shown(&qualifier))
                 .show_ui(ui, |ui| {
                     for q in ["\"", "'", ""] {
@@ -183,7 +183,7 @@ pub(super) fn text_import(app: &mut SheetApp, ui: &mut egui::Ui, d: &mut Dialog,
         let decimal = text(d, "decimal");
         let shown = |x: &str| if x == "auto" { lang.tr("Detect").to_string() } else { x.to_string() };
         let mut picked = decimal.clone();
-        egui::ComboBox::from_id_salt("textImportDecimal")
+        craft_ui::ComboBox::from_id_salt("textImportDecimal")
             .selected_text(shown(&decimal))
             .show_ui(ui, |ui| {
                 for x in ["auto", ".", ","] {
